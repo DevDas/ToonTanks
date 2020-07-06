@@ -6,6 +6,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Projectile.h"
 
 // Sets default values
 APawnBase::APawnBase()
@@ -28,8 +29,6 @@ APawnBase::APawnBase()
 void APawnBase::RotateTurret(FVector LookAtTarget)
 {
 	// Update Turret Mesh Rotation
-	//TurretMesh->SetWorldRotation(LookAtTarget.Rotation());
-
 	FVector StartLocation = TurretMesh->GetComponentLocation();
 	FRotator TurretRotation = UKismetMathLibrary::FindLookAtRotation(
 		StartLocation, 
@@ -42,6 +41,10 @@ void APawnBase::Fire()
 {
 	OnFire.Broadcast();
 	// Spawn Projectile
+
+	if (!ProjectileClass) return;
+
+	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentTransform());
 }
 
 void APawnBase::HandleDestruction()

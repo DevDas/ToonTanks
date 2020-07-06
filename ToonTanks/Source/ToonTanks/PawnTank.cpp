@@ -24,7 +24,7 @@ void APawnTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	//PlayerInputComponent->BindAxis("RotateTurret", this, &APawnTank::RotateTheTurret);
 
-	PlayerInputComponent->BindAction("Fire", EInputEvent::IE_Pressed, this, &APawnTank::Fire);
+	PlayerInputComponent->BindAction("Fire", EInputEvent::IE_Pressed, this, &APawnBase::Fire);
 }
 
 void APawnTank::CalculateMovementInput(float Value)
@@ -77,16 +77,7 @@ void APawnTank::Tick(float DeltaTime)
 		PlayerControllerRef->GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, TraceHitResult);
 		FVector HitLocation = TraceHitResult.ImpactPoint;
 
-		DrawDebugPoint(GetWorld(), HitLocation, 3, FColor::Green, false, 3.f);
+		DrawDebugPoint(GetWorld(), HitLocation, 5, FColor::Green, false, 0.1f);
 		RotateTurret(HitLocation);
 	}
 }
-
-//void APawnTank::RotateTheTurret(float Value)
-//{
-//	auto RotationChange = TurretRotateSpeed * Value * GetWorld()->DeltaTimeSeconds;
-//	auto Rot = GetTurretMesh()->GetComponentRotation();
-//	auto NewRotation = Rot.Yaw + RotationChange;
-//	RotateTurret(FRotator(0, NewRotation, 0).Vector());
-//	GetTurretMesh()->SetWorldRotation(FRotator(0, NewRotation, 0));
-//}

@@ -42,5 +42,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components", meta =(AllowPrivateAccess = "true"))
 	class USceneComponent* ProjectileSpawnPoint;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<class AProjectile> ProjectileClass;
+
 	//Hold Alt Key , Click Multiple Lines
 };
