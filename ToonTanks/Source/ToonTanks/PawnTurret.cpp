@@ -13,6 +13,11 @@ APawnTurret::APawnTurret()
 void APawnTurret::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (PlayerTank && ReturnDistanceToPlayer() <= FireRange)
+	{
+		RotateTurret(PlayerTank->GetActorLocation());
+	}
 }
 
 // Called when the game starts or when spawned
@@ -27,17 +32,13 @@ void APawnTurret::BeginPlay()
 
 void APawnTurret::CheckFireCondition()
 {
-	// If Player valid || s Dead hen Bail
-	if (PlayerTank)
-	{
-
-	}
+	if (!PlayerTank) return;
 
 	//If Player In Range Then Fire
 	if (ReturnDistanceToPlayer() <= FireRange)
 	{
-		//Fire
-		
+		//Fire Method Of PawnBase
+		Fire();
 	}
 }
 
@@ -47,3 +48,10 @@ void APawnTurret::CheckFireCondition()
 
 	 return (PlayerTank->GetActorLocation() - GetActorLocation()).Size();
 }
+
+ void APawnTurret::HandleDestruction()
+ {
+	 Super::HandleDestruction();
+
+	 Destroy();
+ }

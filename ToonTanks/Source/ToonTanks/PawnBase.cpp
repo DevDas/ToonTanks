@@ -5,6 +5,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 APawnBase::APawnBase()
@@ -21,6 +22,35 @@ APawnBase::APawnBase()
 	TurretMesh->SetupAttachment(BaseMesh);
 
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("SceneComponent"));
-	ProjectileSpawnPoint->AttachTo(RootComponent);
+	ProjectileSpawnPoint->AttachTo(TurretMesh);
 }
 
+void APawnBase::RotateTurret(FVector LookAtTarget)
+{
+	// Update Turret Mesh Rotation
+	//TurretMesh->SetWorldRotation(LookAtTarget.Rotation());
+
+	FVector StartLocation = TurretMesh->GetComponentLocation();
+	FRotator TurretRotation = UKismetMathLibrary::FindLookAtRotation(
+		StartLocation, 
+		FVector(LookAtTarget.X, LookAtTarget.Y,TurretMesh->GetComponentLocation().Z));
+
+	TurretMesh->SetWorldRotation(TurretRotation);
+}
+
+void APawnBase::Fire()
+{
+	OnFire.Broadcast();
+	// Spawn Projectile
+}
+
+void APawnBase::HandleDestruction()
+{
+	// Death Effects
+
+	// Do Unique Child Overrides
+
+	// pawnTurret - Inform GameMode Turret Died ,
+	// Destroy
+	// PawnTank -> StopMovement
+}

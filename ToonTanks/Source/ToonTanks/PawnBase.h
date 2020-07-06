@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "PawnBase.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFire);
+
 UCLASS()
 class TOONTANKS_API APawnBase : public APawn
 {
@@ -15,7 +17,18 @@ public:
 	// Sets default values for this pawn's properties
 	APawnBase();
 
+	void RotateTurret(FVector LookAtTarget);
+
+	void Fire();
+
+	UStaticMeshComponent* GetTurretMesh() { return TurretMesh; };
+
+	UPROPERTY(BlueprintAssignable)
+	FOnFire OnFire;
+
 protected:
+
+	virtual void HandleDestruction();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components", meta =(AllowPrivateAccess = "true"))
 	class UCapsuleComponent* CapsuleComp;
@@ -30,5 +43,4 @@ protected:
 	class USceneComponent* ProjectileSpawnPoint;
 
 	//Hold Alt Key , Click Multiple Lines
-
 };

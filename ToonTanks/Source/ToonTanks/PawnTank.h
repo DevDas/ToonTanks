@@ -21,6 +21,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	//void RotateTheTurret(float Value);
+
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -45,7 +47,18 @@ public:
 	UPROPERTY(EditAnywhere)
 	float RotateSpeed = 100.f;
 
+	UPROPERTY(EditAnywhere)
+		float TurretRotateSpeed = 20.f;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	virtual void HandleDestruction() override;
+
+private:
+
+	APlayerController* PlayerControllerRef = nullptr;
+
+	FHitResult TraceHitResult;
 };

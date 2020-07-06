@@ -4,6 +4,7 @@
 #include "PawnTank.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "DrawDebugHelpers.h"
 
 APawnTank::APawnTank()
 {
@@ -20,6 +21,10 @@ void APawnTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &APawnTank::CalculateMovementInput);
 	PlayerInputComponent->BindAxis("Turn", this, &APawnTank::CalculateRotateInput);
+
+	//PlayerInputComponent->BindAxis("RotateTurret", this, &APawnTank::RotateTheTurret);
+
+	PlayerInputComponent->BindAction("Fire", EInputEvent::IE_Pressed, this, &APawnTank::Fire);
 }
 
 void APawnTank::CalculateMovementInput(float Value)
@@ -49,6 +54,14 @@ void APawnTank::BeginPlay()
 {
 	Super::BeginPlay();
 
+	PlayerControllerRef = Cast<APlayerController>(GetController());
+}
+
+void APawnTank::HandleDestruction()
+{
+	Super::HandleDestruction();
+
+	// HidePlayer.TODO- Create New Function
 }
 
 // Called every frame
@@ -58,4 +71,22 @@ void APawnTank::Tick(float DeltaTime)
 
 	Move();
 	Rotate();
+
+	if (PlayerControllerRef)
+	{
+		PlayerControllerRef->GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, TraceHitResult);
+		FVector HitLocation = TraceHitResult.ImpactPoint;
+
+		DrawDebugPoint(GetWorld(), HitLocation, 3, FColor::Green, false, 3.f);
+		RotateTurret(HitLocation);
+	}
 }
+
+//void APawnTank::RotateTheTurret(float Value)
+//{
+//	auto RotationChange = TurretRotateSpeed * Value * GetWorld()->DeltaTimeSeconds;
+//	auto Rot = GetTurretMesh()->GetComponentRotation();
+//	auto NewRotation = Rot.Yaw + RotationChange;
+//	RotateTurret(FRotator(0, NewRotation, 0).Vector());
+//	GetTurretMesh()->SetWorldRotation(FRotator(0, NewRotation, 0));
+//}
