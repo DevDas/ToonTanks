@@ -45,6 +45,7 @@ void APawnBase::Fire()
 	if (!ProjectileClass) return;
 
 	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentTransform());
+	Projectile->SetOwner(this);
 }
 
 void APawnBase::HandleDestruction()
