@@ -32,7 +32,7 @@ void APawnTank::CalculateMovementInput(float Value)
 	MoveDirection = FVector(Value * MoveSpeed * GetWorld()->DeltaTimeSeconds, 0, 0);
 }
 
-void APawnTank::CalculateRotateInput(float Value)
+void APawnTank::CalculateRotateInput(float Value) //******************
 {
 	float RotateAmount = Value * RotateSpeed * GetWorld()->DeltaTimeSeconds;
 	FRotator Rotation = FRotator(0, RotateAmount, 0);
@@ -78,6 +78,6 @@ void APawnTank::Tick(float DeltaTime)
 		FVector HitLocation = TraceHitResult.ImpactPoint;
 
 		DrawDebugPoint(GetWorld(), HitLocation, 5, FColor::Green, false, 0.1f);
-		RotateTurret(HitLocation);
+		RotateTurret(HitLocation); //**********************
 	}
 }

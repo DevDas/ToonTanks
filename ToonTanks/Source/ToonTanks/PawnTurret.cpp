@@ -16,7 +16,7 @@ void APawnTurret::Tick(float DeltaTime)
 
 	if (PlayerTank && ReturnDistanceToPlayer() <= FireRange)
 	{
-		RotateTurret(PlayerTank->GetActorLocation());
+		RotateTurret(PlayerTank->GetActorLocation()); //**********************
 	}
 }
 

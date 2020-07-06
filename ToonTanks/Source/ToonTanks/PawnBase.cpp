@@ -7,6 +7,7 @@
 #include "Components/SceneComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Projectile.h"
+#include "HealthComponent.h"
 
 // Sets default values
 APawnBase::APawnBase()
@@ -24,9 +25,11 @@ APawnBase::APawnBase()
 
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("SceneComponent"));
 	ProjectileSpawnPoint->AttachTo(TurretMesh);
+
+	HealthComp = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComp"));
 }
 
-void APawnBase::RotateTurret(FVector LookAtTarget)
+void APawnBase::RotateTurret(FVector LookAtTarget) //************************************
 {
 	// Update Turret Mesh Rotation
 	FVector StartLocation = TurretMesh->GetComponentLocation();
