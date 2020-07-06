@@ -16,14 +16,19 @@ public:
 	APawnBase();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components", meta =(AllowPrivateAccess = "true"))
+	class UCapsuleComponent* CapsuleComp;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components", meta =(AllowPrivateAccess = "true"))
+	class UStaticMeshComponent* BaseMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components", meta =(AllowPrivateAccess = "true"))
+	class UStaticMeshComponent* TurretMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components", meta =(AllowPrivateAccess = "true"))
+	class USceneComponent* ProjectileSpawnPoint;
+
+	//Hold Alt Key , Click Multiple Lines
 
 };

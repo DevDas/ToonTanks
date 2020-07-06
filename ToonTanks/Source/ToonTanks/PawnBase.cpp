@@ -2,33 +2,25 @@
 
 
 #include "PawnBase.h"
+#include "Components/CapsuleComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Components/SceneComponent.h"
 
 // Sets default values
 APawnBase::APawnBase()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-}
+	CapsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComp"));
+	RootComponent = CapsuleComp;
 
-// Called when the game starts or when spawned
-void APawnBase::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
+	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BaseMesh"));
+	BaseMesh->AttachTo(CapsuleComp);
 
-// Called every frame
-void APawnBase::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+	TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretMesh"));
+	TurretMesh->SetupAttachment(BaseMesh);
 
-}
-
-// Called to bind functionality to input
-void APawnBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("SceneComponent"));
+	ProjectileSpawnPoint->AttachTo(RootComponent);
 }
 
