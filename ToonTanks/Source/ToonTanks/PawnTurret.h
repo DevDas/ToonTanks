@@ -23,10 +23,17 @@ public:
 
 	void CheckFireCondition();
 
+	float ReturnDistanceToPlayer();
+
 	FTimerHandle FireRateTimerHandle;
 
 	UPROPERTY(EditAnywhere)
 		float Delay = 2.f;
+
+	class APawnTank* PlayerTank = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	float FireRange = 20.f;
 
 protected:
 	// Called when the game starts or when spawned
