@@ -45,4 +45,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Player", meta = (AllowPrivateAccess = "true"))
 	class APawnTank* PlayerTank;
+
+	class APlayerControllerBase* PlayerControllerRef;
 };

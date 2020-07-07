@@ -4,12 +4,14 @@
 #include "PawnTank.h"
 #include "PawnTurret.h"
 #include "Kismet/GameplayStatics.h"
+#include "PlayerControllerBase.h"
 
 void AToonTankGameModeBase::BeginPlay()
 {
 	TargetTurets = GetTargetTurretCount();//************
 
 	PlayerTank = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(this, 0));
+	PlayerControllerRef = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(this, 0));
 
 	HandleGameStart();
 
@@ -22,6 +24,11 @@ void AToonTankGameModeBase::ActorDied(AActor* DeadActor)
 	{
 		PlayerTank->PawnDestroyed();
 		HandleGameOver(false);
+
+		if (PlayerControllerRef)
+		{
+			PlayerControllerRef->SetPlayerEnabledState(false);
+		}
 	}
 	else if (APawnTurret* DestroyedTurret = Cast<APawnTurret>(DeadActor))
 	{
@@ -50,6 +57,16 @@ int32 AToonTankGameModeBase::GetTargetTurretCount()
 void AToonTankGameModeBase::HandleGameStart()
 {
 	GameStart();
+
+	if (PlayerControllerRef)
+	{
+		PlayerControllerRef->SetPlayerEnabledState(false);
+
+		FTimerHandle EnablePlayerHandle; // ***************************
+		FTimerDelegate PlayerEnableDelegate = FTimerDelegate::CreateUObject(PlayerControllerRef, &APlayerControllerBase::SetPlayerEnabledState,true);
+
+		GetWorldTimerManager().SetTimer(EnablePlayerHandle, PlayerEnableDelegate, StartDelay, false);
+	}
 }
 
 void AToonTankGameModeBase::HandleGameOver(bool PlayerWon)

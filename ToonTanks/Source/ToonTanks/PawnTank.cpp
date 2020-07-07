@@ -61,7 +61,7 @@ void APawnTank::HandleDestruction()
 {
 	Super::HandleDestruction();
 
-	Destroy();
+	//Destroy();
 }
 
 // Called every frame

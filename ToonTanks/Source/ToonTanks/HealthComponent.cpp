@@ -8,8 +8,6 @@
 UHealthComponent::UHealthComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
-
-	Health = DefaultHealth;
 }
 
 void UHealthComponent::BeginPlay()
@@ -23,6 +21,8 @@ void UHealthComponent::BeginPlay()
 	{
 		Owner->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::TakeDamage);
 	}
+
+	Health = DefaultHealth; // Remember Dynamic Variable In Constructor will Not Work So Set It In BeginPlay()
 }
 
 void UHealthComponent::TakeDamage(AActor* DamagedActor, float Damage,
