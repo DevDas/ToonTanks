@@ -3,6 +3,7 @@
 #include "HealthComponent.h"
 #include "ToonTankGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "PawnTurret.h"
 
 UHealthComponent::UHealthComponent()
 {

@@ -33,6 +33,9 @@ public:
 
 private:
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GameLoop", meta = (AllowPrivateAccess = "true"))
+		int32 StartDelay = 3;
+
 	int32 GetTargetTurretCount();
 
 	int32 TargetTurets = 0;
