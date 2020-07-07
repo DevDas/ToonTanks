@@ -48,6 +48,9 @@ public:
 	UPROPERTY(EditAnywhere)
 		float TurretRotateSpeed = 20.f;
 
+	UPROPERTY(BlueprintReadOnly)
+	int32 Score;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

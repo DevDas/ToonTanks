@@ -26,6 +26,8 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnFire OnFire;
 
+	void PawnDestroyed();
+
 protected:
 
 	virtual void HandleDestruction();
@@ -45,7 +47,5 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<class AProjectile> ProjectileClass;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile", meta = (AllowPrivateAccess = "true"))
-	class UHealthComponent* HealthComp;
 	//Hold Alt Key , Click Multiple Lines
 };

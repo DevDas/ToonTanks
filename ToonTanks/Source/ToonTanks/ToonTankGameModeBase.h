@@ -28,8 +28,18 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void GameOver(bool PlayerWon);
 
+	UPROPERTY(EditAnywhere)
+		int32 AddScore = 10;
+
 private:
+
+	int32 GetTargetTurretCount();
+
+	int32 TargetTurets = 0;
 
 	void HandleGameStart();
 	void HandleGameOver(bool PlayerWon);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Player", meta = (AllowPrivateAccess = "true"))
+	class APawnTank* PlayerTank;
 };

@@ -25,8 +25,6 @@ APawnBase::APawnBase()
 
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("SceneComponent"));
 	ProjectileSpawnPoint->AttachTo(TurretMesh);
-
-	HealthComp = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComp"));
 }
 
 void APawnBase::RotateTurret(FVector LookAtTarget) //************************************
@@ -49,6 +47,11 @@ void APawnBase::Fire()
 
 	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentTransform());
 	Projectile->SetOwner(this);
+}
+
+void APawnBase::PawnDestroyed()
+{
+	HandleDestruction();
 }
 
 void APawnBase::HandleDestruction()
