@@ -48,9 +48,6 @@ public:
 	UPROPERTY(EditAnywhere)
 		float TurretRotateSpeed = 20.f;
 
-	UPROPERTY(BlueprintReadOnly)
-	int32 Score;
-
 	bool GetPlayerAlive() { return bAlive; };
 
 protected:

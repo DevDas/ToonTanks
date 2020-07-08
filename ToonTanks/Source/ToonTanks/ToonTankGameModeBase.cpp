@@ -32,7 +32,7 @@ void AToonTankGameModeBase::ActorDied(AActor* DeadActor)
 	}
 	else if (APawnTurret* DestroyedTurret = Cast<APawnTurret>(DeadActor))
 	{
-		PlayerTank->Score += AddScore;
+		Score += AddScore;
 		
 		DestroyedTurret->PawnDestroyed();
 		TargetTurets--;

@@ -28,6 +28,8 @@ public:
 	UFUNCTION(BlueprintPure, BlueprintCallable, Category = "Health")
 	float GetHealthPercentage() { return Health / DefaultHealth; }
 
+
+	float SetDefaultHealth(float SetHealth) { return DefaultHealth = SetHealth; };
 private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Health", meta = (AllowPrivateAccess = "true"))

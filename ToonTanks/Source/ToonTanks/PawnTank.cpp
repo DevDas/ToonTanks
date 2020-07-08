@@ -5,6 +5,9 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "DrawDebugHelpers.h"
+#include "HealthComponent.h"
+#include "ToonTankGameModeBase.h"
+#include "Kismet/GameplayStatics.h"
 
 APawnTank::APawnTank()
 {
@@ -55,6 +58,12 @@ void APawnTank::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerControllerRef = Cast<APlayerController>(GetController());
+
+	AToonTankGameModeBase* GameModeRef = Cast<AToonTankGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	if (!GameModeRef) return;
+
+	HealthComp->SetDefaultHealth(GameModeRef->LevelDefaults.Health);
+	Ammo = GameModeRef->LevelDefaults.Ammo;
 }
 
 void APawnTank::HandleDestruction()

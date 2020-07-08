@@ -6,6 +6,18 @@
 #include "GameFramework/GameModeBase.h"
 #include "ToonTankGameModeBase.generated.h"
 
+USTRUCT(BlueprintType)
+struct FLeveleDefaults
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Health = 100;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 Ammo = 20;
+};
+
 /**
  * 
  */
@@ -17,6 +29,9 @@ class TOONTANKS_API AToonTankGameModeBase : public AGameModeBase
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(BlueprintReadOnly)
+	int32 Score;
 
 public:
 
@@ -30,6 +45,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		int32 AddScore = 10;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LevelDefaults")
+	FLeveleDefaults LevelDefaults;
 
 private:
 
