@@ -6,6 +6,8 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "GameFramework/DamageType.h"
 #include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystem.h"
+#include "Particles/ParticleSystemComponent.h"
 
 AProjectile::AProjectile()
 {
@@ -17,6 +19,9 @@ AProjectile::AProjectile()
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
 	ProjectileMovement->InitialSpeed = MovementSpeed;
 	ProjectileMovement->MaxSpeed = MovementSpeed;
+
+	TracerFX = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("TracerFX"));
+	TracerFX->AttachTo(ProjectileMesh);
 
 	InitialLifeSpan = 3.f;
 }
@@ -45,5 +50,9 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwner->GetInstigatorController(), this, DamageType);
 	}
 
+	if (HitFX)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitFX, HitComponent->GetComponentLocation());
+	}
 	Destroy();
 }
