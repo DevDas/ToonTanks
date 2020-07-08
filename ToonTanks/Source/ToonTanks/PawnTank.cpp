@@ -62,6 +62,10 @@ void APawnTank::HandleDestruction()
 	Super::HandleDestruction();
 
 	//Destroy();
+
+	bAlive = false;
+	SetActorHiddenInGame(true); //*************************
+	SetActorTickEnabled(false);
 }
 
 // Called every frame

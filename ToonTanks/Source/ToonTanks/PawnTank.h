@@ -51,6 +51,8 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	int32 Score;
 
+	bool GetPlayerAlive() { return bAlive; };
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -58,6 +60,8 @@ protected:
 	virtual void HandleDestruction() override;
 
 private:
+
+	bool bAlive = true;
 
 	APlayerController* PlayerControllerRef = nullptr;
 

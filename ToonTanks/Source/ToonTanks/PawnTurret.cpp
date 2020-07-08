@@ -14,7 +14,7 @@ void APawnTurret::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (PlayerTank && ReturnDistanceToPlayer() <= FireRange)
+	if (PlayerTank && ReturnDistanceToPlayer() <= FireRange && PlayerTank->GetPlayerAlive())
 	{
 		RotateTurret(PlayerTank->GetActorLocation()); //**********************
 	}
@@ -35,7 +35,7 @@ void APawnTurret::CheckFireCondition()
 	if (!PlayerTank) return;
 
 	//If Player In Range Then Fire
-	if (ReturnDistanceToPlayer() <= FireRange)
+	if (ReturnDistanceToPlayer() <= FireRange && PlayerTank->GetPlayerAlive())
 	{
 		//Fire Method Of PawnBase
 		Fire();
