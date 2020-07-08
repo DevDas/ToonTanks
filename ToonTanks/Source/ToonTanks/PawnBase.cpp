@@ -10,6 +10,7 @@
 #include "HealthComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
+#include "Sound/SoundBase.h"
 
 // Sets default values
 APawnBase::APawnBase()
@@ -66,7 +67,8 @@ void APawnBase::HandleDestruction()
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), DeathFX, GetActorTransform());
 	}
 
-
+	if (!DeathSound) return;
+	UGameplayStatics::SpawnSoundAtLocation(GetWorld(), DeathSound, GetActorLocation());
 
 	// Do Unique Child Overrides
 

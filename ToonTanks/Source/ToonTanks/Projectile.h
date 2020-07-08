@@ -51,4 +51,10 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "FX", meta = (AllowPrivateAccess = "true"))
 		class UParticleSystemComponent* TracerFX;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SFX", meta = (AllowPrivateAccess = "true"))
+		class USoundBase* HitSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SFX", meta = (AllowPrivateAccess = "true"))
+	class USoundBase* FireSound;
 };

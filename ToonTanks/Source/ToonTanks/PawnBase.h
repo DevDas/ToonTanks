@@ -53,5 +53,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 		class UHealthComponent* HealthComp;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SFX", meta = (AllowPrivateAccess = "true"))
+		class USoundBase* DeathSound;
+
 	//Hold Alt Key , Click Multiple Lines
 };

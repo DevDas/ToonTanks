@@ -8,6 +8,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "Sound/SoundBase.h"
 
 AProjectile::AProjectile()
 {
@@ -31,6 +32,9 @@ void AProjectile::BeginPlay()
 	Super::BeginPlay();
 	
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
+
+	if (!FireSound) return;
+	UGameplayStatics::SpawnSoundAtLocation(GetWorld(), FireSound, GetActorLocation());
 }
 
 void AProjectile::Tick(float DeltaTime)
@@ -50,9 +54,10 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwner->GetInstigatorController(), this, DamageType);
 	}
 
-	if (HitFX)
+	if (HitFX && HitSound)
 	{
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitFX, HitComponent->GetComponentLocation());
+		UGameplayStatics::SpawnSoundAtLocation(GetWorld(), HitSound, HitComponent->GetComponentLocation());
 	}
 	Destroy();
 }
