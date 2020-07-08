@@ -56,5 +56,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SFX", meta = (AllowPrivateAccess = "true"))
 		class USoundBase* DeathSound;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effects", meta = (AllowPrivateAccess = "true"))
+		TSubclassOf<class UCameraShake> DeathShake;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo", meta = (AllowPrivateAccess = "true"))
+	int32 Ammo = 30;
+
 	//Hold Alt Key , Click Multiple Lines
 };

@@ -9,6 +9,7 @@
 #include "Particles/ParticleSystem.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Sound/SoundBase.h"
+#include "Camera/CameraShake.h"
 
 AProjectile::AProjectile()
 {
@@ -59,5 +60,10 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitFX, HitComponent->GetComponentLocation());
 		UGameplayStatics::SpawnSoundAtLocation(GetWorld(), HitSound, HitComponent->GetComponentLocation());
 	}
+	if (HitShake)
+	{
+		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->PlayCameraShake(HitShake, 1); //******************************
+	}
+
 	Destroy();
 }

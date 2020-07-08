@@ -11,6 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
 #include "Sound/SoundBase.h"
+#include "Camera/CameraShake.h"
 
 // Sets default values
 APawnBase::APawnBase()
@@ -45,6 +46,8 @@ void APawnBase::RotateTurret(FVector LookAtTarget) //***************************
 
 void APawnBase::Fire()
 {
+	if (Ammo <= 0) return;
+
 	OnFire.Broadcast();
 	// Spawn Projectile
 
@@ -70,9 +73,8 @@ void APawnBase::HandleDestruction()
 	if (!DeathSound) return;
 	UGameplayStatics::SpawnSoundAtLocation(GetWorld(), DeathSound, GetActorLocation());
 
-	// Do Unique Child Overrides
-
-	// pawnTurret - Inform GameMode Turret Died ,
-	// Destroy
-	// PawnTank -> StopMovement
+	if (DeathShake)
+	{
+		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->PlayCameraShake(DeathShake, 1); //******************************
+	}
 }
